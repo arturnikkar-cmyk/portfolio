@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <title>Valikõpingud</title>
+  <style>
+    body { font-family: Arial; margin: 40px; background: #f0f0f0; }
+    nav a { margin-right: 15px; text-decoration: none; color: #333; }
+    main { background: white; padding: 20px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Avaleht</a>
+    <a href="eesmargid.html">Eesmärgid</a>
+    <a href="pohiopingud.html">Põhiõpingud</a>
+    <a href="valikopingud.html">Valikõpingud</a>
+    <a href="paevik.html">Veebipäevik</a>
+  </nav>
+
+  <main>
+    <h1>Valikõpingud</h1>
+    <p>Mulle meeldivad ained, mis on seotud loovusega ja praktilise tööga.</p>
+    <ul>
+      <li>Veebirakenduste loomise alused</li>
+      <li>Graafiline disain</li>
+      <li>Multimeedia projektid</li>
+    </ul>
+    <p>Nendes tundides saan rakendada oma ideid ja õppida tegema reaalseid projekte.</p>
+  </main>
+</body>
+</html>
