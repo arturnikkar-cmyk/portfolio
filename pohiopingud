@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <title>Põhiõpingud</title>
+  <style>
+    body { font-family: Arial; margin: 40px; background: #f0f0f0; }
+    nav a { margin-right: 15px; text-decoration: none; color: #333; }
+    main { background: white; padding: 20px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Avaleht</a>
+    <a href="eesmargid.html">Eesmärgid</a>
+    <a href="pohiopingud.html">Põhiõpingud</a>
+    <a href="valikopingud.html">Valikõpingud</a>
+    <a href="paevik.html">Veebipäevik</a>
+  </nav>
+
+  <main>
+    <h1>Põhiõpingud</h1>
+    <ul>
+      <li>Programmeerimise alused</li>
+      <li>IT-süsteemide alused</li>
+      <li>Arvutivõrgud</li>
+      <li>Andmebaasid</li>
+      <li>Inglise keel</li>
+    </ul>
+    <p>Need õppeained annavad mulle tugeva aluse IT va
