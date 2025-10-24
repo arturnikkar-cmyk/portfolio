@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <title>Programmeerimise alused</title>
+  <style>
+    body { font-family: Arial; margin: 40px; background: #f0f0f0; }
+    nav a { margin-right: 15px; text-decoration: none; color: #333; }
+    main { background: white; padding: 20px; border-radius: 8px; }
+    code { background: #eee; padding: 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Avaleht</a>
+    <a href="eesmargid.html">Eesmärgid</a>
+    <a href="pohiopingud.html">Põhiõpingud</a>
+    <a href="valikopingud.html">Valikõpingud</a>
+    <a href="paevik.html">Veebipäevik</a>
+  </nav>
+
+  <main>
+    <h1>Programmeerimise alused</h1>
+    <p>Selles aines õppisin, kuidas kirjutada lihtsat koodi. Näiteks:</p>
+    <pre><code>print("Tere, maailm!")</code></pre>
+    <p>Õppisin, kuidas mõelda loogiliselt ja lahendada probleeme samm-sammult.</p>
+  </main>
+</body>
+</html>
