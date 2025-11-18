@@ -1,0 +1,136 @@
+#18
+for arv in range(20, 51):
+    jagub_3ga = (arv % 3 == 0)
+    ei_jagu_5ga = (arv % 5 != 0)
+    if jagub_3ga and ei_jagu_5ga:
+        print(arv)
+    
+arv = 20
+while arv <= 50:
+    jagub_3ga = (arv % 3 == 0)
+    ei_jagu_5ga = (arv % 5 != 0)
+    if jagub_3ga and ei_jagu_5ga:
+        print(arv)
+    arv = arv + 1
+    
+    arv = 20
+while True:
+    if arv > 50:
+        break
+    jagub_3ga = (arv % 3 == 0)
+    ei_jagu_5ga = (arv % 5 != 0)
+    if jagub_3ga and ei_jagu_5ga:
+        print(arv)
+    arv = arv + 1
+
+#19
+    summa = 0
+for arv in range(1, 51):
+    jagub_5ga = (arv % 5 == 0)
+    jagub_7ga = (arv % 7 == 0)
+    if jagub_5ga or jagub_7ga:
+        summa = summa + arv
+print(summa)
+
+arv = 35
+while arv <= 87:
+    jaak = arv % 7
+    if jaak == 1 or jaak == 2 or jaak == 5:
+        print(arv)
+    arv = arv + 1
+
+arv = 35
+while True:
+    if arv > 87:
+        break
+    jaak = arv % 7
+    if jaak == 1 or jaak == 2 or jaak == 5:
+        print(arv)
+    arv = arv + 1
+
+#20
+    summa = 0
+for arv in range(1, 51):
+    jagub_5ga = (arv % 5 == 0)
+    jagub_7ga = (arv % 7 == 0)
+    if jagub_5ga or jagub_7ga:
+        summa = summa + arv
+print(summa)
+
+arv = 1
+summa = 0
+while arv <= 50:
+    jagub_5ga = (arv % 5 == 0)
+    jagub_7ga = (arv % 7 == 0)
+    if jagub_5ga or jagub_7ga:
+        summa = summa + arv
+    arv = arv + 1
+print(summa)
+
+arv = 1
+summa = 0
+while True:
+    if arv > 50:
+        break
+    jagub_5ga = (arv % 5 == 0)
+    jagub_7ga = (arv % 7 == 0)
+    if jagub_5ga or jagub_7ga:
+        summa = summa + arv
+    arv = arv + 1
+print(summa)
+
+#21
+arvud = []
+for i in range(10):
+    x = int(input())
+    if x < 0:
+        x = x * -1
+    arvud.append(x)
+print(arvud)
+
+arvud = []
+kord = 0
+while kord < 10:
+    x = int(input())
+    if x < 0:
+        x = x * -1
+    arvud.append(x)
+    kord = kord + 1
+print(arvud)
+
+arvud = []
+kord = 0
+while True:
+    if kord == 10:
+        break
+    x = int(input())
+    if x < 0:
+        x = x * -1
+    arvud.append(x)
+    kord = kord + 1
+print(arvud)
+
+# 22
+summa = 0
+for arv in range(100, 201):
+    if arv % 17 == 0:
+        summa = summa + arv
+print(summa)
+
+arv = 100
+summa = 0
+while arv <= 200:
+    if arv % 17 == 0:
+        summa = summa + arv
+    arv = arv + 1
+print(summa)
+
+arv = 100
+summa = 0
+while True:
+    if arv > 200:
+        break
+    if arv % 17 == 0:
+        summa = summa + arv
+    arv = arv + 1
+print(summa)
