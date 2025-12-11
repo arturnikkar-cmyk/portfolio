@@ -1,0 +1,72 @@
+# 1. Juku
+nimi = input("Sisesta nimi: ")
+
+if nimi.isupper() and nimi == "JUKU":
+    print("Lähme Jukuga kinno!")
+else:
+    print("Ei lähe kinno.")
+
+vanus = input("Sisesta vanus: ")
+
+if vanus.isdigit():
+    vanus = int(vanus)
+    if vanus < 0 or vanus > 100:
+        print("Viga andmetega")
+    elif vanus < 6:
+        print("Tasuta pilet")
+    elif vanus <= 14:
+        print("Lastepilet")
+    elif vanus <= 65:
+        print("Täispilet")
+    else:
+        print("Sooduspilet")
+else:
+    print("Vanus pole täisarv!")
+
+# 2. Pinginaabrid
+nimi1 = input("Sisesta esimene nimi: ")
+nimi2 = input("Sisesta teine nimi: ")
+
+if nimi1.isalpha() and nimi2.isalpha():
+    print("Täna olete pinginaabrid!")
+else:
+    print("Te ei ole pinginaabrid, nimed pole õiged.")
+
+# 3. Temperatuur
+t = input("Sisesta temperatuur: ")
+
+if t.replace(".", "").isdigit():
+    t = float(t)
+    if t > 18:
+        print("Toas on soe!")
+    else:
+        print("Natuke jahe...")
+else:
+    print("Vale temperatuur!")
+
+# 4. Allahindlus 30%
+hind = input("Sisesta hind: ")
+
+if hind.isdigit():
+    hind = float(hind)
+    if hind > 700:
+        soodus = hind * 0.7
+        print("Soodushind on:", soodus)
+    else:
+        print("Hind pole üle 700, soodust pole.")
+else:
+    print("Hind peab olema number!")
+
+# 5. Pikkus
+p = input("Sisesta pikkus cm: ")
+
+if p.isdigit():
+    p = int(p)
+    if p < 160:
+        print("Sa oled lühike.")
+    elif p <= 185:
+        print("Keskmine pikkus.")
+    else:
+        print("Pikk inimene!")
+else:
+    print("Pikkus peab olema number.")
