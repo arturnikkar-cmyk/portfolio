@@ -1,7 +1,6 @@
 ﻿from random import randint
 
 def vahetus(a, b):
-   
     # исправлено: раньше значения не менялись местами
     abi = a
     a = b
@@ -10,17 +9,13 @@ def vahetus(a, b):
 
 
 def generaator(n, loend, a, b):
-  
-
-    # исправлено: "for i in range n"  puudu olid sulud
-    # исправлено: loend(append()) vale, nüüd loend.append()
+    # исправлено: range(n) — раньше не было скобок
     for i in range(n):
         loend.append(randint(a, b))
 
 
 def jagamine(loend, p, n, nol):
-    
-    # исправлено: "elif::" oli vale süntaks
+    # исправлено: "elif::" был неправильный синтаксис
     for el in loend:
         if el > 0:
             p.append(el)
@@ -31,12 +26,10 @@ def jagamine(loend, p, n, nol):
 
 
 def keskmine(loend):
-  
-    # исправлено: kui list tühi, peab tagastama 0
+    # исправлено: защита от пустого списка
     if len(loend) == 0:
         return 0
 
-    # исправлено: sum arvutati varem valesti
     summa = 0
     for i in loend:
         summa += i
@@ -45,31 +38,36 @@ def keskmine(loend):
 
 
 def lisamine(loend, el):
- 
-    # исправлено: loend(append()) vale süntaks
     loend.append(el)
-
-    # исправлено: sort() kasutati valesti
-    loend.sort()
+    loend.sort()  # исправлено: sort() был использован неверно
 
 
 def arvud_loendis():
-  
     print("Andmed:")
 
-    # try-except vale sisendi vältimiseks
+    #iga sisendi jaoks oma try-except
     while True:
         try:
             n = abs(int(input("Mitu täisarvu genereerime loendisse? => ")))
+            break
+        except:
+            print("Ошибка: sisesta täisarv!")  
+
+    while True:
+        try:
             mini = int(input("Sisesta vahemiku minimaalne arv => "))
+            break
+        except:
+            print("Ошибка: sisesta täisarv!")
+
+    while True:
+        try:
             maxi = int(input("Sisesta vahemiku maksimaalne arv => "))
             break
         except:
-            # исправлено: lisatud vigade käitlemine
-            print("Palun sisesta numbrid, mitte midagi muud!")
+            print("Ошибка: sisesta täisarv!")
 
-    # parandame vahemiku vajadusel
-    # исправлено: kui mini >= maxi, vahetan ära
+    #исправлено: если минимум >= максимум меняем местами
     if mini >= maxi:
         mini, maxi = vahetus(mini, maxi)
 
@@ -104,5 +102,6 @@ def arvud_loendis():
     print(s)
 
 
-# käivitame programmi
+#käivitame programmi
 arvud_loendis()
+
