@@ -102,6 +102,5 @@ def arvud_loendis():
     print(s)
 
 
-#käivitame programmi
-arvud_loendis()
+
 
