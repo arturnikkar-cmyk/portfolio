@@ -1,0 +1,108 @@
+﻿from random import randint
+
+def vahetus(a, b):
+   
+    # исправлено: раньше значения не менялись местами
+    abi = a
+    a = b
+    b = abi
+    return a, b
+
+
+def generaator(n, loend, a, b):
+  
+
+    # исправлено: "for i in range n"  puudu olid sulud
+    # исправлено: loend(append()) vale, nüüd loend.append()
+    for i in range(n):
+        loend.append(randint(a, b))
+
+
+def jagamine(loend, p, n, nol):
+    
+    # исправлено: "elif::" oli vale süntaks
+    for el in loend:
+        if el > 0:
+            p.append(el)
+        elif el < 0:
+            n.append(el)
+        else:
+            nol.append(el)
+
+
+def keskmine(loend):
+  
+    # исправлено: kui list tühi, peab tagastama 0
+    if len(loend) == 0:
+        return 0
+
+    # исправлено: sum arvutati varem valesti
+    summa = 0
+    for i in loend:
+        summa += i
+
+    return round(summa / len(loend), 2)
+
+
+def lisamine(loend, el):
+ 
+    # исправлено: loend(append()) vale süntaks
+    loend.append(el)
+
+    # исправлено: sort() kasutati valesti
+    loend.sort()
+
+
+def arvud_loendis():
+  
+    print("Andmed:")
+
+    # try-except vale sisendi vältimiseks
+    while True:
+        try:
+            n = abs(int(input("Mitu täisarvu genereerime loendisse? => ")))
+            mini = int(input("Sisesta vahemiku minimaalne arv => "))
+            maxi = int(input("Sisesta vahemiku maksimaalne arv => "))
+            break
+        except:
+            # исправлено: lisatud vigade käitlemine
+            print("Palun sisesta numbrid, mitte midagi muud!")
+
+    # parandame vahemiku vajadusel
+    # исправлено: kui mini >= maxi, vahetan ära
+    if mini >= maxi:
+        mini, maxi = vahetus(mini, maxi)
+
+    s = []
+    generaator(n, s, mini, maxi)
+
+    print("\nTulemused:")
+    print(f"Saadud loend vahemikus {mini} kuni {maxi} :", s)
+
+    s.sort()
+    print("Sorteeritud loend:", s)
+
+    pos = []
+    neg = []
+    nol = []
+
+    jagamine(s, pos, neg, nol)
+
+    print("Positiivsed arvud:", pos)
+    print("Negatiivsed arvud:", neg)
+    print("Nullid:", nol)
+
+    kesk_pos = keskmine(pos)
+    lisamine(s, kesk_pos)
+    print("Positiivsete keskmine:", kesk_pos)
+
+    kesk_neg = keskmine(neg)
+    lisamine(s, kesk_neg)
+    print("Negatiivsete keskmine:", kesk_neg)
+
+    print("\nLisame keskmised algsesse massiivi ja sorteerime:")
+    print(s)
+
+
+# käivitame programmi
+arvud_loendis()
