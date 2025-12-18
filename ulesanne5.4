@@ -1,0 +1,204 @@
+import random
+import string
+
+def juhuslik_andmed(inimesed, palgad):
+    kogus = random.randint(5, 15)
+    for _ in range(kogus):
+        nimi = "".join(random.choice(string.ascii_uppercase) for _ in range(random.randint(2, 3)))
+        palk = random.randint(500, 3000)
+        inimesed.append(nimi)
+        palgad.append(palk)
+
+def lisa_andmeid(inimesed, palgad):
+    n = int(input("Mitu inimest lisada: "))
+    for _ in range(n):
+        inimesed.append(input("Nimi: "))
+        palgad.append(int(input("Palk: ")))
+
+def kustuta_andmeid(inimesed, palgad):
+    nimi = input("Sisesta nimi: ")
+    i = 0
+    while i < len(inimesed):
+        if inimesed[i] == nimi:
+            inimesed.pop(i)
+            palgad.pop(i)
+        else:
+            i += 1
+
+def suurim_palk(inimesed, palgad):
+    m = max(palgad)
+    for i in range(len(palgad)):
+        if palgad[i] == m:
+            print(inimesed[i], m)
+
+def vaikseim_palk(inimesed, palgad):
+    m = min(palgad)
+    for i in range(len(palgad)):
+        if palgad[i] == m:
+            print(inimesed[i], m)
+
+def jarjesta_palgad(inimesed, palgad):
+    suund = input("1-kasvav 2-kahanev: ")
+    andmed = sorted(zip(inimesed, palgad), key=lambda x: x[1], reverse=(suund == "2"))
+    for n, p in andmed:
+        print(n, p)
+
+def vordsed_palgad(inimesed, palgad):
+    tehtud = set()
+    for p in palgad:
+        if palgad.count(p) > 1 and p not in tehtud:
+            tehtud.add(p)
+            for i in range(len(palgad)):
+                if palgad[i] == p:
+                    print(inimesed[i], p)
+
+def palga_otsing(inimesed, palgad):
+    nimi = input("Nimi: ")
+    for i in range(len(inimesed)):
+        if inimesed[i] == nimi:
+            print(palgad[i])
+
+def piiratud_palk(inimesed, palgad):
+    summa = int(input("Summa: "))
+    valik = input("1-rohkem 2-vähem: ")
+    for i in range(len(palgad)):
+        if valik == "1" and palgad[i] > summa:
+            print(inimesed[i], palgad[i])
+        if valik == "2" and palgad[i] < summa:
+            print(inimesed[i], palgad[i])
+
+def top_t(inimesed, palgad):
+    t = int(input("T: "))
+    andmed = sorted(zip(inimesed, palgad), key=lambda x: x[1])
+    for x in andmed[:t]:
+        print("Vaene:", x)
+    for x in andmed[-t:]:
+        print("Rikas:", x)
+
+def keskmine(inimesed, palgad):
+    k = sum(palgad) / len(palgad)
+    print("Keskmine:", k)
+    for i in range(len(palgad)):
+        if palgad[i] == k:
+            print(inimesed[i])
+
+def tulumaks(inimesed, palgad):
+    nimi = input("Nimi: ")
+    for i in range(len(inimesed)):
+        if inimesed[i] == nimi:
+            bruto = palgad[i]
+            maksuvaba = 654
+            netto = bruto - max(0, bruto - maksuvaba) * 0.2
+            print(int(netto))
+
+def sorteeri_nime_jargi(inimesed, palgad):
+    suund = input("1-AZ 2-ZA: ")
+    andmed = sorted(zip(inimesed, palgad), key=lambda x: x[0], reverse=(suund == "2"))
+    inimesed.clear()
+    palgad.clear()
+    for n, p in andmed:
+        inimesed.append(n)
+        palgad.append(p)
+
+def eemalda_alla_keskmise(inimesed, palgad):
+    k = sum(palgad) / len(palgad)
+    i = 0
+    while i < len(palgad):
+        if palgad[i] < k:
+            inimesed.pop(i)
+            palgad.pop(i)
+        else:
+            i += 1
+
+def vorminda_andmed(inimesed, palgad):
+    for i in range(len(inimesed)):
+        inimesed[i] = inimesed[i].capitalize()
+        palgad[i] = int(palgad[i])
+
+def palga_tous(inimesed, palgad):
+    t = int(input("Aastad: "))
+    for i in range(len(palgad)):
+        uus = palgad[i]
+        for _ in range(t):
+            uus *= 1.05
+        print(inimesed[i], int(uus))
+
+def nimeta_umber(inimesed):
+    for i in range(2, len(inimesed), 3):
+        inimesed[i] = input(f"Uus nimi {inimesed[i]}: ")
+
+def redigeeri_andmeid(inimesed, palgad):
+    nimi = input("Nimi: ")
+    if nimi in inimesed:
+        i = inimesed.index(nimi)
+        if input("1-nimi 2-palk: ") == "1":
+            inimesed[i] = input("Uus nimi: ")
+        else:
+            palgad[i] = int(input("Uus palk: "))
+
+def otsi_algustahe(inimesed, palgad):
+    t = input("Täht: ").upper()
+    for i in range(len(inimesed)):
+        if inimesed[i].startswith(t):
+            print(inimesed[i], palgad[i])
+
+def minu_eri_funktsioon(inimesed, palgad):
+    nimi = input("Nimi: ")
+    if nimi in inimesed:
+        print("Indeks:", inimesed.index(nimi))
+
+
+inimesed = ["A", "B", "C", "D", "E", "F"]
+palgad = [1000, 1200, 2500, 800, 750, 1200]
+
+while True:
+    print("""
+1 juhuslik
+2 lisa
+3 kustuta
+4 suurim
+5 vaikseim
+6 jarjesta
+7 vordsed
+8 otsing nimega
+9 piir
+10 top
+11 keskmine
+12 tulumaks
+13 sorteeri nimi
+14 eemalda alla keskmise
+15 vorminda
+16 palga tous
+17 nimeta umber
+18 redigeeri
+19 otsi algustahe
+20 minu
+0 exit
+""")
+    v = input("Valik: ")
+    if v == "1": juhuslik_andmed(inimesed, palgad)
+    elif v == "2": lisa_andmeid(inimesed, palgad)
+    elif v == "3": kustuta_andmeid(inimesed, palgad)
+    elif v == "4": suurim_palk(inimesed, palgad)
+    elif v == "5": vaikseim_palk(inimesed, palgad)
+    elif v == "6": jarjesta_palgad(inimesed, palgad)
+    elif v == "7": vordsed_palgad(inimesed, palgad)
+    elif v == "8": palga_otsing(inimesed, palgad)
+    elif v == "9": piiratud_palk(inimesed, palgad)
+    elif v == "10": top_t(inimesed, palgad)
+    elif v == "11": keskmine(inimesed, palgad)
+    elif v == "12": tulumaks(inimesed, palgad)
+    elif v == "13": sorteeri_nime_jargi(inimesed, palgad)
+    elif v == "14": eemalda_alla_keskmise(inimesed, palgad)
+    elif v == "15": vorminda_andmed(inimesed, palgad)
+    elif v == "16": palga_tous(inimesed, palgad)
+    elif v == "17": nimeta_umber(inimesed)
+    elif v == "18": redigeeri_andmeid(inimesed, palgad)
+    elif v == "19": otsi_algustahe(inimesed, palgad)
+    elif v == "20": minu_eri_funktsioon(inimesed, palgad)
+    elif v == "0": break
+    else: print("Vale valik")
+
+    print("\nNimi - Palk")
+    for i in range(len(inimesed)):
+        print(inimesed[i], "-", palgad[i])
