@@ -1,0 +1,86 @@
+import os,glob,datetime
+
+def leia_projektifailid(laiend):
+    return glob.glob(f"**/*{laiend}",recursive=True)
+
+def analuusi_faili_sisu(failitee):
+    ridu=0;tyhje=0;todo=0
+    try:
+        with open(failitee,"r",errors="ignore") as f:
+            for r in f:
+                ridu+=1
+                if not r.strip(): tyhje+=1
+                todo+=r.count("TODO")+r.count("FIXME")
+    except:
+        pass
+    return {"fail":failitee,"ridu":ridu,"tyhje":tyhje,"todo":todo}
+
+def loo_raporti_kataloog(nimi="Analüüsi_Raportid"):
+    if not os.path.exists(nimi): os.mkdir(nimi)
+    return nimi
+
+def leia_failid_algustahega(taht):
+    return glob.glob(f"{taht}*.*")
+
+def skanni_failityybid():
+    tyybid=set()
+    for f in os.listdir(os.getcwd()):
+        if os.path.isfile(f) and "." in f:
+            tyybid.add(os.path.splitext(f)[1])
+    return list(tyybid)
+
+def taisanaluus(laiend):
+    failid=leia_projektifailid(laiend)
+    kogu={"ridu":0,"tyhje":0,"todo":0,"faile":0}
+    detailid=[]
+    for f in failid:
+        a=analuusi_faili_sisu(f)
+        kogu["ridu"]+=a["ridu"]
+        kogu["tyhje"]+=a["tyhje"]
+        kogu["todo"]+=a["todo"]
+        kogu["faile"]+=1
+        detailid.append(a)
+    return kogu,detailid
+
+def salvesta_raport(kogu,detailid):
+    kaust=loo_raporti_kataloog()
+    nimi=f"raport_{datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}.txt"
+    tee=os.path.join(kaust,nimi)
+    with open(tee,"w") as f:
+        f.write(f"Faile:{kogu['faile']}\nRidu:{kogu['ridu']}\nTühje:{kogu['tyhje']}\nTODO/FIXME:{kogu['todo']}\n\n")
+        for d in detailid:
+            f.write(f"{d['fail']} | ridu:{d['ridu']} tyhje:{d['tyhje']} todo:{d['todo']}\n")
+    return tee
+
+def puhasta_logid():
+    kaust=loo_raporti_kataloog()
+    for f in os.listdir(kaust):
+        os.remove(os.path.join(kaust,f))
+
+def main():
+    print("Leitud failitüübid:",",".join(skanni_failityybid()))
+    kogu=None;detailid=None
+    while True:
+        print("\n1-Täisanalüüs 2-Salvesta raport 3-Puhasta logid 4-Otsi algustähega 0-Välju")
+        v=input("Valik:")
+        if v=="1":
+            l=input("Sisesta laiend:")
+            kogu,detailid=taisanaluus(l)
+            print(kogu)
+        elif v=="2":
+            if kogu and detailid:
+                print("Salvestatud:",salvesta_raport(kogu,detailid))
+            else:
+                print("Pole analüüsi tehtud")
+        elif v=="3":
+            if input("Kustutan kõik logid? y/n:")=="y":
+                puhasta_logid()
+                print("Valmis")
+        elif v=="4":
+            t=input("Sisesta täht:")
+            print(leia_failid_algustahega(t))
+        elif v=="0":
+            break
+
+if __name__=="__main__":
+    main()
