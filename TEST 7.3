@@ -1,0 +1,260 @@
+# подключаем модуль random
+# он нужен, чтобы выбирать случайные вопросы
+import random
+
+
+# -------------------------------
+# ИМЕНА ФАЙЛОВ
+# -------------------------------
+
+# файл, где хранятся вопросы и ответы
+QUEST_FILE = "kusimused_vastused.txt"
+
+# файл для тех, кто прошёл тест
+GOOD_FILE = "oiged.txt"
+
+# файл для тех, кто не прошёл тест
+BAD_FILE = "valed.txt"
+
+# файл для всех участников
+ALL_FILE = "koik.txt"
+
+
+# сколько человек будет проходить тест
+M = 3
+
+# сколько вопросов задаём каждому человеку
+N = 3
+
+
+# -------------------------------
+# ФУНКЦИЯ ЧТЕНИЯ ВОПРОСОВ
+# -------------------------------
+
+def load_questions():
+    # создаём пустой словарь
+    # словарь — это структура вида:
+    # ключ : значение
+    # пример: {"Сколько будет 2+2?": "4"}
+    questions = {}
+
+    # открываем файл с вопросами
+    # "r" значит read (читать)
+    file = open(QUEST_FILE, "r", encoding="utf-8")
+
+    # for — это цикл
+    # он берёт по ОДНОЙ строке из файла
+    # и выполняет код внутри для каждой строки
+    for line in file:
+
+        # strip() убирает перенос строки \n
+        line = line.strip()
+
+        # if — это проверка
+        # здесь проверяем: есть ли в строке символ ":"
+        if ":" in line:
+
+            # split(":") делит строку на 2 части
+            # слева от ":" и справа
+            q, a = line.split(":")
+
+            # кладём вопрос и ответ в словарь
+            # q — ключ (вопрос)
+            # a.lower() — ответ маленькими буквами
+            questions[q] = a.lower()
+
+    # закрываем файл (ОБЯЗАТЕЛЬНО)
+    file.close()
+
+    # возвращаем словарь с вопросами
+    return questions
+
+
+# -------------------------------
+# ФУНКЦИЯ СОЗДАНИЯ EMAIL
+# -------------------------------
+
+def make_email(name):
+    # lower() — делает все буквы маленькими
+    # replace(" ", ".") — заменяет пробел на точку
+    # + "@example.com" — добавляем почту
+    return name.lower().replace(" ", ".") + "@example.com"
+
+
+# -------------------------------
+# ФУНКЦИЯ ОПРОСА ОДНОГО ЧЕЛОВЕКА
+# -------------------------------
+
+def ask_questions(name, questions):
+    # right — сколько правильных ответов
+    right = 0
+
+    # random.sample — выбирает СЛУЧАЙНЫЕ элементы
+    # list(questions.items()) — превращаем словарь в список пар (вопрос, ответ)
+    # N — сколько вопросов выбрать
+    selected = random.sample(list(questions.items()), N)
+
+    # for q, a in selected:
+    # q — это вопрос
+    # a — это правильный ответ
+    # цикл выполнится для каждого вопроса
+    for q, a in selected:
+
+        # input — ждёт ввод от пользователя
+        # name + ", " + q — обращаемся по имени
+        answer = input(name + ", " + q + " ").lower()
+
+        # if — проверка
+        # если ответ пользователя равен правильному
+        if answer == a:
+            # увеличиваем счётчик правильных ответов
+            right += 1
+
+    # success — логическая переменная (True или False)
+    # True если правильных больше половины
+    success = right > N / 2
+
+    # возвращаем количество правильных и результат
+    return right, success
+
+
+# -------------------------------
+# "ОТПРАВКА" ПИСЬМА ПОЛЬЗОВАТЕЛЮ
+# -------------------------------
+
+def send_user_email(name, email, right, success):
+    # print — выводит текст на экран
+    print("\nОтправлено:", email)
+    print("Привет,", name)
+    print("Правильных ответов:", right)
+
+    # if проверяет, прошёл ли человек тест
+    if success:
+        print("Тест ПРОЙДЕН")
+    else:
+        print("Тест НЕ ПРОЙДЕН")
+
+
+# -------------------------------
+# СОХРАНЕНИЕ РЕЗУЛЬТАТОВ В ФАЙЛЫ
+# -------------------------------
+
+def save_results(results):
+    # good — список прошедших тест
+    good = []
+
+    # bad — список не прошедших
+    bad = []
+
+    # for name in results:
+    # results — это словарь
+    # name — ключ словаря (имя человека)
+    for name in results:
+
+        # если success == True
+        if results[name]["success"]:
+            # добавляем имя и баллы
+            good.append((name, results[name]["right"]))
+        else:
+            bad.append(name)
+
+    # сортируем прошедших по баллам (по убыванию)
+    good.sort(key=lambda x: x[1], reverse=True)
+
+    # сортируем не прошедших по алфавиту
+    bad.sort()
+
+    # записываем прошедших в файл
+    f = open(GOOD_FILE, "w", encoding="utf-8")
+    for name, score in good:
+        f.write(name + " – " + str(score) + "\n")
+    f.close()
+
+    # записываем не прошедших
+    f = open(BAD_FILE, "w", encoding="utf-8")
+    for name in bad:
+        f.write(name + "\n")
+    f.close()
+
+    # записываем всех
+    f = open(ALL_FILE, "w", encoding="utf-8")
+    for name in results:
+        f.write(
+            name + ";" +
+            str(results[name]["right"]) + ";" +
+            results[name]["email"] + "\n"
+        )
+    f.close()
+
+
+# -------------------------------
+# ЗАПУСК ТЕСТА
+# -------------------------------
+
+def start_test():
+    # загружаем вопросы
+    questions = load_questions()
+
+    # словарь для хранения всех людей
+    results = {}
+
+    # while — цикл
+    # работает, пока условие True
+    while len(results) < M:
+
+        name = input("\nВведи имя и фамилию: ")
+
+        # проверяем, был ли уже такой человек
+        if name in results:
+            print("Этот человек уже был!")
+            continue
+
+        email = make_email(name)
+        right, success = ask_questions(name, questions)
+
+        # сохраняем результат
+        results[name] = {
+            "right": right,
+            "success": success,
+            "email": email
+        }
+
+        send_user_email(name, email, right, success)
+
+    save_results(results)
+
+    print("\nПРОШЛИ ТЕСТ:")
+    for name in results:
+        if results[name]["success"]:
+            print(name, "-", results[name]["right"])
+
+    print("\nРезультаты отправлены на почту.")
+
+
+# -------------------------------
+# МЕНЮ
+# -------------------------------
+
+# бесконечный цикл меню
+while True:
+    print("\n1 - Начать тест")
+    print("2 - Добавить вопрос")
+    print("3 - Выход")
+
+    choice = input("Выбери: ")
+
+    if choice == "1":
+        start_test()
+
+    elif choice == "2":
+        q = input("Введи вопрос: ")
+        a = input("Введи ответ: ")
+
+        f = open(QUEST_FILE, "a", encoding="utf-8")
+        f.write(q + ":" + a + "\n")
+        f.close()
+
+        print("Вопрос добавлен")
+
+    elif choice == "3":
+        break
