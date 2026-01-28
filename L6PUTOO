@@ -321,7 +321,81 @@ print(loend[-1])  # последний элемент 40
 loend[1] = 25
 print(loend)  # [10,25,30,40]
 
-# ---------------------------------------------------------
+# -kvadratnoe URAVNENIE--------------------------------------------------------
+import math
+
+print("Решение квадратного уравнения: ax^2 + bx + c = 0")
+
+a = float(input("Введи a: "))
+b = float(input("Введи b: "))
+c = float(input("Введи c: "))
+
+if a == 0:
+    print("Это не квадратное уравнение (a = 0)")
+else:
+    d = b**2 - 4*a*c
+    print("Дискриминант =", d)
+
+    if d > 0:
+        x1 = (-b + math.sqrt(d)) / (2*a)
+        x2 = (-b - math.sqrt(d)) / (2*a)
+        print("Два корня:")
+        print("x1 =", x1)
+        print("x2 =", x2)
+    elif d == 0:
+        x = -b / (2*a)
+        print("Один корень:")
+        print("x =", x)
+    else:
+        print("Корней нет (дискриминант < 0)")
+
+#KALKULATOR
+print("Tavaline kalkulaator")
+print("Vali tehe:")
+print("+  liitmine")
+print("-  lahutamine")
+print("*  korrutamine")
+print("/  jagamine")
+
+op = input("Tehe: ")
+a = float(input("Esimene arv: "))
+b = float(input("Teine arv: "))
+
+if op == "+":
+    print("Tulemus:", a + b)
+elif op == "-":
+    print("Tulemus:", a - b)
+elif op == "*":
+    print("Tulemus:", a * b)
+elif op == "/":
+    if b == 0:
+        print("Viga: nulliga jagamine ei ole lubatud")
+    else:
+        print("Tulemus:", a / b)
+else:
+    print("Tundmatu tehe")
+
+#SOZDAVATJ CHTO TO
+with open("textovik.txt", "w", encoding="utf-8") as file:
+    file.write("Eto tekstoviy fail")
+
+#Ввести текст с клавиатуры и сохранить
+
+text = input("Vvedi tekst: ")
+
+with open("textovik.txt", "a", encoding="utf-8") as file:
+    file.write(text + "\n")
+
+
+
+
+
+
+
+
+
+
+
 # МЕТОДЫ СПИСКОВ
 # ---------------------------------------------------------
 loend.append(5)
